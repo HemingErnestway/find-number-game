@@ -6,7 +6,7 @@ import css from "./game.module.css";
 
 import { COLORS, INITIAL_GAME_STATE } from "@/lib/constants";
 import { Cell } from "@/components/cell";
-import { sample } from "@/lib/functions";
+import { generateLevel, sample } from "@/lib/functions";
 import { useTypedReducer } from "@/lib/hooks";
 
 /**
@@ -16,9 +16,22 @@ import { useTypedReducer } from "@/lib/hooks";
  */
 function reducer(state, action) {
   if (action.type === "response") {
+    const cell = state.level.grid[action.payload.row][action.payload.col];
+    const correctPick = cell.value === state.level.numberToFind;
+
+    // happy path
+    if (correctPick) {
+      return {
+        backgroundColor: sample(Object.keys(COLORS)),
+        level: generateLevel(state.difficultyNumber + 1),
+        difficultyNumber: state.difficultyNumber + 1,
+        strikes: 0,
+      };
+    }
+
+    // strike path
     return {
       ...state,
-      backgroundColor: sample(Object.keys(COLORS)),
     };
   }
 }
@@ -50,7 +63,7 @@ export function Game() {
           Strikes: {state.strikes}
         </p>
         <p className={css["game-info__status"]}>
-          Difficulty: {state.difficultyLevel}
+          Difficulty: {state.difficultyNumber}
         </p>
       </div>
       <div className={css["game__field"]}>
@@ -59,14 +72,14 @@ export function Game() {
             Find number:
           </p>
           <p className={css["number-to-find-container__value"]}>
-            {state.numberToFind}
+            {state.level.numberToFind}
           </p>
         </div>
         <div
           className={css["game-field__grid"]}
-          style={{ gridTemplateColumns: `repeat(${state.cellGrid[0].length}, 1fr)` }}
+          style={{ gridTemplateColumns: `repeat(${state.level.grid[0].length}, 1fr)` }}
         >
-          {state.cellGrid.flat().map(cell => (
+          {state.level.grid.flat().map(cell => (
             <Cell
               cell={cell}
               handleResponse={handleResponse}

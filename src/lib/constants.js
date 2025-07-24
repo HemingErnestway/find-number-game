@@ -1,6 +1,6 @@
 // @ts-check
 
-/** @type {Object.<Color, string>} */
+/** @type {Record.<Color, string>} */
 export const COLORS = {
   "blue": "#a0c6f6",
   "green": "#b8e6a9",
@@ -23,7 +23,7 @@ export const TUTORIAL_CELL_GRID = [
   ],
 ];
 
-/** @type {Object.<number, Difficulty>} */
+/** @type {Record.<number, Difficulty>} */
 export const DIFFICULTIES = {
   // tutorial difficulty, predefined numbers of different lengths
   0: { rows: 2, cols: 3, numberLength: -1, animationsOn: false },
@@ -40,8 +40,10 @@ export const DIFFICULTIES = {
 /** @type {GameState} */
 export const INITIAL_GAME_STATE = {
   backgroundColor: "blue",
-  numberToFind: 75,
-  cellGrid: TUTORIAL_CELL_GRID,
-  difficultyLevel: 0,
+  level: {
+    numberToFind: 75,
+    grid: TUTORIAL_CELL_GRID,
+  },
+  difficultyNumber: 0,
   strikes: 0,
 };

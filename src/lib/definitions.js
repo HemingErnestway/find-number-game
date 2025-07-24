@@ -23,11 +23,16 @@
  **/
 
 /**
+ * @typedef {Object} Level
+ * @property {number} numberToFind
+ * @property {Grid} grid
+ */
+
+/**
  * @typedef {Object} GameState
  * @property {Color} backgroundColor
- * @property {number} numberToFind
- * @property {Grid} cellGrid
- * @property {number} difficultyLevel
+ * @property {Level} level
+ * @property {number} difficultyNumber
  * @property {number} strikes
  */
 
