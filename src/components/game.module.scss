@@ -1,10 +1,51 @@
 .game {
   width: 800px;
-  height: 400px;
-  padding: 20px;
+  height: 500px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
 }
 
-.grid {
+.game__info-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 40px;
+  height: 20px;
+
+  p {
+    font-size: 20px;
+    line-height: 1;
+    margin: 0;
+  }
+}
+
+.game__field {
+  height: 300px;
+}
+
+.game-field__number-to-find-container {
+  font-size: 40px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff66;
+  width: 400px;
+  padding: 20px;
+  margin: 0 auto 40px auto;
+}
+
+.number-to-find-container__text {
+  line-height: 1;
+  margin: 0;
+}
+
+.number-to-find-container__value {
+  line-height: 1;
+  margin: 0;
+  font-weight: bold;
+}
+
+.game-field__grid {
   display: grid;
   gap: 20px;
   height: 100%;

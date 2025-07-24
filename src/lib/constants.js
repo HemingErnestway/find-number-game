@@ -40,7 +40,7 @@ export const DIFFICULTIES = {
 /** @type {GameState} */
 export const INITIAL_GAME_STATE = {
   backgroundColor: "blue",
-  numberToGuess: 75,
+  numberToFind: 75,
   cellGrid: TUTORIAL_CELL_GRID,
   difficultyLevel: 0,
   strikes: 0,

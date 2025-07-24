@@ -5,7 +5,7 @@ import { Game } from "@/components/game";
 
 export default function Home() {
   return (
-    <div className={css.home}>
+    <div className={css["home"]}>
       <Game />
     </div>
   );

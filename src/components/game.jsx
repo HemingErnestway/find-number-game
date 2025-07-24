@@ -42,20 +42,38 @@ export function Game() {
 
   return (
     <div
-      className={css.game}
+      className={css["game"]}
       style={{ backgroundColor: COLORS[state.backgroundColor] }}
     >
-      <div
-        className={css.grid}
-        style={{ gridTemplateColumns: `repeat(${state.cellGrid[0].length}, 1fr)` }}
-      >
-        {state.cellGrid.flat().map(cell => (
-          <Cell
-            cell={cell}
-            handleResponse={handleResponse}
-            key={cell.value}
-          />
-        ))}
+      <div className={css["game__info-container"]}>
+        <p className={css["game-info__status"]}>
+          Strikes: {state.strikes}
+        </p>
+        <p className={css["game-info__status"]}>
+          Difficulty: {state.difficultyLevel}
+        </p>
+      </div>
+      <div className={css["game__field"]}>
+        <div className={css["game-field__number-to-find-container"]}>
+          <p className={css["number-to-find-container__text"]}>
+            Find number:
+          </p>
+          <p className={css["number-to-find-container__value"]}>
+            {state.numberToFind}
+          </p>
+        </div>
+        <div
+          className={css["game-field__grid"]}
+          style={{ gridTemplateColumns: `repeat(${state.cellGrid[0].length}, 1fr)` }}
+        >
+          {state.cellGrid.flat().map(cell => (
+            <Cell
+              cell={cell}
+              handleResponse={handleResponse}
+              key={cell.value}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

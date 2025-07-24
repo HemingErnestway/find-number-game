@@ -25,7 +25,7 @@
 /**
  * @typedef {Object} GameState
  * @property {Color} backgroundColor
- * @property {number} numberToGuess
+ * @property {number} numberToFind
  * @property {Grid} cellGrid
  * @property {number} difficultyLevel
  * @property {number} strikes

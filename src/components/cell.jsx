@@ -13,7 +13,7 @@ import { COLORS } from "@/lib/constants";
 export function Cell({ cell, handleResponse }) {
   return (
     <div
-      className={css.cell}
+      className={css["cell"]}
       style={{ backgroundColor: COLORS[cell.color] }}
       onClick={() => handleResponse(cell.row, cell.col)}
     >
