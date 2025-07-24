@@ -1,0 +1,13 @@
+.game {
+  width: 800px;
+  height: 400px;
+  padding: 20px;
+}
+
+.grid {
+  display: grid;
+  gap: 20px;
+  height: 100%;
+}
+
+/*# sourceMappingURL=game.module.css.map */
