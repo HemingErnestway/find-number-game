@@ -3,20 +3,42 @@
 "use client";
 
 import css from "./game.module.css";
-import { useReducer } from "react";
 
-import { COLORS, INITIAL_GAME_STATE } from "@/lib/definitions";
-import { sample } from "@/lib/functions";
+import { COLORS, INITIAL_GAME_STATE } from "@/lib/constants";
 import { Cell } from "@/components/cell";
+import { sample } from "@/lib/functions";
+import { useTypedReducer } from "@/lib/hooks";
 
+/**
+ * @param {GameState} state
+ * @param {Action} action
+ * @returns {GameState}
+ */
 function reducer(state, action) {
-  if (action.type === "change_background") {
-    return sample(Object.values(COLORS));
+  if (action.type === "response") {
+    return {
+      ...state,
+      backgroundColor: sample(Object.keys(COLORS)),
+    };
   }
 }
 
 export function Game() {
-  const [state, dispatch] = useReducer(reducer, INITIAL_GAME_STATE, undefined);
+  const [state, dispatch] = useTypedReducer(reducer, INITIAL_GAME_STATE);
+
+  /**
+   * @param {number} row
+   * @param {number} col
+   */
+  function handleResponse(row, col) {
+    dispatch({
+      type: "response",
+      payload: {
+        row: row,
+        col: col,
+      },
+    });
+  }
 
   return (
     <div
@@ -29,8 +51,8 @@ export function Game() {
       >
         {state.cellGrid.flat().map(cell => (
           <Cell
-            value={cell.value}
-            color={cell.color}
+            cell={cell}
+            handleResponse={handleResponse}
             key={cell.value}
           />
         ))}
