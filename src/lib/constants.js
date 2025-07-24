@@ -37,10 +37,23 @@ export const DIFFICULTIES = {
   7: { rows: 5, cols: 5, numberLength: 4, animationsOn: true },
 };
 
+/** @type {Record.<number, LevelSpan>} */
+export const DIFFICULTY_LEVEL_SPAN = {
+  0: "tutorial",
+  1: [1],
+  2: [2],
+  3: [3],
+  4: [4, 5],
+  5: [6],
+  6: [7],
+  7: "endless",
+};
+
 /** @type {GameState} */
 export const INITIAL_GAME_STATE = {
   backgroundColor: "blue",
   level: {
+    levelNumber: 0,
     numberToFind: 75,
     grid: TUTORIAL_CELL_GRID,
   },

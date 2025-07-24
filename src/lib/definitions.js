@@ -24,6 +24,7 @@
 
 /**
  * @typedef {Object} Level
+ * @property {number} levelNumber
  * @property {number} numberToFind
  * @property {Grid} grid
  */
@@ -47,3 +48,5 @@
  * @property {"response"} type
  * @property {Payload} payload
  */
+
+/** @typedef { "tutorial" | number[] | "endless" } LevelSpan */

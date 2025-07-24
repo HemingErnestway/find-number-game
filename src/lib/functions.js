@@ -1,6 +1,6 @@
 // @ts-check
 
-import { COLORS, DIFFICULTIES } from "@/lib/constants";
+import { COLORS, DIFFICULTIES, DIFFICULTY_LEVEL_SPAN } from "@/lib/constants";
 
 /**
  * Pick a random value from array.
@@ -52,15 +52,44 @@ export function generateCellValues(difficultyNumber) {
 }
 
 /**
+ * Get next `difficultyNumber` value.
+ *
+ * @param {number} difficultyNumber
+ * @param {number} levelNumber
+ * @returns {number}
+ */
+export function nextDifficulty(levelNumber, difficultyNumber) {
+  console.log(DIFFICULTY_LEVEL_SPAN[difficultyNumber], levelNumber)
+
+  if (DIFFICULTY_LEVEL_SPAN[difficultyNumber] === "tutorial") {
+    console.log("TUT")
+    return 1;
+  }
+
+  if (DIFFICULTY_LEVEL_SPAN[difficultyNumber] === "endless") {
+    console.log("END")
+    return 7;
+  }
+
+  if (DIFFICULTY_LEVEL_SPAN[difficultyNumber].includes(levelNumber + 1)) {
+    console.log("STAY AT", difficultyNumber)
+    return difficultyNumber;
+  }
+
+  console.log("UP")
+  return difficultyNumber + 1;
+}
+
+/**
  * Generate `numberToPick` and `grid` for the next level.
  *
+ * @param {number} levelNumber
  * @param {number} difficultyNumber
  * @returns {Level}
  */
-export function generateLevel(difficultyNumber) {
+export function generateNextLevel(levelNumber, difficultyNumber) {
   const difficulty = DIFFICULTIES[difficultyNumber];
   const cellValues = generateCellValues(difficultyNumber);
-  console.log(cellValues)
 
   /** @type {GridCell[]} */
   const cells = [];
@@ -77,9 +106,8 @@ export function generateLevel(difficultyNumber) {
     }
   }
 
-  console.log("cells", cells)
-
   return {
+    levelNumber: levelNumber + 1,
     numberToFind: sample(cellValues),
     grid: arrayToMatrix(cells, difficulty.cols),
   };

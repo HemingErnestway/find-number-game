@@ -6,7 +6,7 @@ import css from "./game.module.css";
 
 import { COLORS, INITIAL_GAME_STATE } from "@/lib/constants";
 import { Cell } from "@/components/cell";
-import { generateLevel, sample } from "@/lib/functions";
+import { generateNextLevel, nextDifficulty, sample } from "@/lib/functions";
 import { useTypedReducer } from "@/lib/hooks";
 
 /**
@@ -21,10 +21,12 @@ function reducer(state, action) {
 
     // happy path
     if (correctPick) {
+      const nextDifficultyNumber = nextDifficulty(state.level.levelNumber, state.difficultyNumber);
+
       return {
         backgroundColor: sample(Object.keys(COLORS)),
-        level: generateLevel(state.difficultyNumber + 1),
-        difficultyNumber: state.difficultyNumber + 1,
+        level: generateNextLevel(state.level.levelNumber, nextDifficultyNumber),
+        difficultyNumber: nextDifficultyNumber,
         strikes: 0,
       };
     }
