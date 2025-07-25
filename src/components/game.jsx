@@ -62,10 +62,13 @@ export function Game() {
     >
       <div className={css["game__info-container"]}>
         <p className={css["game-info__status"]}>
-          Strikes: {state.strikes}
+          Level: {state.level.levelNumber}
         </p>
         <p className={css["game-info__status"]}>
           Difficulty: {state.difficultyNumber}
+        </p>
+        <p className={css["game-info__status"]}>
+          Strikes: {state.strikes}
         </p>
       </div>
       <div className={css["game__field"]}>
