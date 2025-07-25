@@ -58,5 +58,5 @@ export const INITIAL_GAME_STATE = {
     grid: TUTORIAL_CELL_GRID,
   },
   difficultyNumber: 0,
-  strikes: 0,
+  bonus: 1,
 };

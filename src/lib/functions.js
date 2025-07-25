@@ -87,7 +87,7 @@ export function nextDifficulty(levelNumber, difficultyNumber) {
  * @param {number} difficultyNumber
  * @returns {Level}
  */
-export function generateNextLevel(levelNumber, difficultyNumber) {
+export function generateLevel(levelNumber, difficultyNumber) {
   const difficulty = DIFFICULTIES[difficultyNumber];
   const cellValues = generateCellValues(difficultyNumber);
 
@@ -107,7 +107,7 @@ export function generateNextLevel(levelNumber, difficultyNumber) {
   }
 
   return {
-    levelNumber: levelNumber + 1,
+    levelNumber: levelNumber,
     numberToFind: sample(cellValues),
     grid: arrayToMatrix(cells, difficulty.cols),
   };

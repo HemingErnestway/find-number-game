@@ -34,7 +34,7 @@
  * @property {Color} backgroundColor
  * @property {Level} level
  * @property {number} difficultyNumber
- * @property {number} strikes
+ * @property {number} bonus
  */
 
 /**

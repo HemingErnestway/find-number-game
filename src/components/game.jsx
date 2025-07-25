@@ -6,7 +6,7 @@ import css from "./game.module.css";
 
 import { COLORS, INITIAL_GAME_STATE } from "@/lib/constants";
 import { Cell } from "@/components/cell";
-import { generateNextLevel, nextDifficulty, sample } from "@/lib/functions";
+import { generateLevel, nextDifficulty, sample } from "@/lib/functions";
 import { useTypedReducer } from "@/lib/hooks";
 
 /**
@@ -17,23 +17,28 @@ import { useTypedReducer } from "@/lib/hooks";
 function reducer(state, action) {
   if (action.type === "response") {
     const cell = state.level.grid[action.payload.row][action.payload.col];
+
     const correctPick = cell.value === state.level.numberToFind;
+    const isTutorial = state.level.levelNumber === 0;
 
     // happy path
-    if (correctPick) {
+    if (correctPick || isTutorial) {
       const nextDifficultyNumber = nextDifficulty(state.level.levelNumber, state.difficultyNumber);
 
       return {
         backgroundColor: sample(Object.keys(COLORS)),
-        level: generateNextLevel(state.level.levelNumber, nextDifficultyNumber),
+        level: generateLevel(state.level.levelNumber + 1, nextDifficultyNumber),
         difficultyNumber: nextDifficultyNumber,
-        strikes: 0,
+        bonus: (state.bonus + 1) > 5 ? 5 : state.bonus + 1,
       };
     }
 
     // strike path
     return {
-      ...state,
+      backgroundColor: sample(Object.keys(COLORS)),
+      level: generateLevel(state.level.levelNumber, state.difficultyNumber),
+      difficultyNumber: state.difficultyNumber,
+      bonus: (state.bonus - 1) < 1 ? 1 : state.bonus - 1,
     };
   }
 }
@@ -68,7 +73,7 @@ export function Game() {
           Difficulty: {state.difficultyNumber}
         </p>
         <p className={css["game-info__status"]}>
-          Strikes: {state.strikes}
+          Bonus: x{state.bonus}
         </p>
       </div>
       <div className={css["game__field"]}>
