@@ -1,6 +1,6 @@
 // @ts-check
 
-import { COLORS, DIFFICULTIES, DIFFICULTY_LEVEL_SPAN } from "@/lib/constants";
+import { ANIMATION_TWEEN_VARS, COLORS, DIFFICULTIES, DIFFICULTY_LEVEL_SPAN } from "@/lib/constants";
 
 /**
  * Pick a random value from array.
@@ -59,24 +59,18 @@ export function generateCellValues(difficultyNumber) {
  * @returns {number}
  */
 export function nextDifficulty(levelNumber, difficultyNumber) {
-  console.log(DIFFICULTY_LEVEL_SPAN[difficultyNumber], levelNumber)
-
   if (DIFFICULTY_LEVEL_SPAN[difficultyNumber] === "tutorial") {
-    console.log("TUT")
     return 1;
   }
 
   if (DIFFICULTY_LEVEL_SPAN[difficultyNumber] === "endless") {
-    console.log("END")
     return 7;
   }
 
   if (DIFFICULTY_LEVEL_SPAN[difficultyNumber].includes(levelNumber + 1)) {
-    console.log("STAY AT", difficultyNumber)
     return difficultyNumber;
   }
 
-  console.log("UP")
   return difficultyNumber + 1;
 }
 
@@ -101,7 +95,9 @@ export function generateLevel(levelNumber, difficultyNumber) {
         col: j,
         value: cellValues[i * difficulty.cols + j],
         color: sample(Object.keys(COLORS)),
-        animation: "none",
+        animation: difficulty.animationsOn
+          ? sample(Object.keys(ANIMATION_TWEEN_VARS))
+          : null,
       });
     }
   }

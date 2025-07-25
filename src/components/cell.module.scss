@@ -4,11 +4,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 30px;
   user-select: none;
   cursor: pointer;
 }
 
 .cell:hover {
-  outline: 5px solid white;
+  outline: 5px solid #ffffffcc;
+}
+
+.cell__text {
+  font-size: 30px;
+  color: #ffffffcc;
 }

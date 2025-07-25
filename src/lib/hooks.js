@@ -10,5 +10,5 @@ import { useReducer } from "react";
  * @returns {[S, (action: A) => void]}
  */
 export function useTypedReducer(reducer, initialState) {
-    return useReducer(reducer, initialState);
+  return useReducer(reducer, initialState);
 }

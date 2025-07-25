@@ -1,15 +1,15 @@
 // @ts-check
 
-/** @typedef { "blue" | "green" | "orange" | "purple" | "red" } Color */
-/** @typedef { "none" | "scale" | "tilt" | "pulse" } Animation */
+/** @typedef { "blue" | "green" | "orange" | "purple" | "red" } GameColor */
+/** @typedef { "scale" | "tilt" | "pulse" } GameAnimation */
 
 /**
  * @typedef {Object} GridCell
  * @property {number} row
  * @property {number} col
  * @property {number} value
- * @property {Color} color
- * @property {Animation} animation
+ * @property {GameColor} color
+ * @property {GameAnimation | null} animation
  */
 
 /** @typedef {GridCell[][]} Grid */
@@ -31,7 +31,7 @@
 
 /**
  * @typedef {Object} GameState
- * @property {Color} backgroundColor
+ * @property {GameColor} backgroundColor
  * @property {Level} level
  * @property {number} difficultyNumber
  * @property {number} bonus
@@ -50,3 +50,10 @@
  */
 
 /** @typedef { "tutorial" | number[] | "endless" } LevelSpan */
+
+/**
+ * @typedef {Object} CellAnimationGSAP
+ * @property { "cell" | "text" } target
+ * @property {GSAPTweenVars} fromVars
+ * @property {GSAPTweenVars} toVars
+ */

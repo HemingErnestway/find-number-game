@@ -1,6 +1,6 @@
 .game {
   width: 800px;
-  height: 500px;
+  height: 600px;
   padding: 40px;
   display: flex;
   flex-direction: column;
@@ -12,6 +12,8 @@
   justify-content: flex-end;
   gap: 40px;
   height: 20px;
+  color: rgba(255, 255, 255, 0.8);
+  user-select: none;
 }
 .game__info-container p {
   font-size: 20px;
@@ -20,17 +22,19 @@
 }
 
 .game__field {
-  height: 300px;
+  height: 400px;
 }
 
 .game-field__number-to-find-container {
   font-size: 40px;
   display: flex;
   justify-content: space-between;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(0, 0, 0, 0.1333333333);
+  color: rgba(255, 255, 255, 0.8);
   width: 400px;
   padding: 20px;
   margin: 0 auto 40px auto;
+  user-select: none;
 }
 
 .number-to-find-container__text {
