@@ -9,12 +9,13 @@
 }
 
 .cell:hover {
-  outline: 5px solid rgba(255, 255, 255, 0.8);
+  outline: 5px solid #ffffff;
 }
 
 .cell__text {
   font-size: 30px;
-  color: rgba(255, 255, 255, 0.8);
+  font-weight: bold;
+  color: #ffffff;
 }
 
 @keyframes animation--tilt {

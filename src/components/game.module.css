@@ -12,13 +12,15 @@
   justify-content: flex-end;
   gap: 40px;
   height: 20px;
-  color: rgba(255, 255, 255, 0.8);
+  color: #ffffff;
   user-select: none;
 }
-.game__info-container p {
+
+.game-info__status {
   font-size: 20px;
   line-height: 1;
   margin: 0;
+  font-weight: bold;
 }
 
 .game__field {
@@ -30,7 +32,7 @@
   display: flex;
   justify-content: space-between;
   background-color: rgba(0, 0, 0, 0.1333333333);
-  color: rgba(255, 255, 255, 0.8);
+  color: #ffffff;
   width: 400px;
   padding: 20px;
   margin: 0 auto 40px auto;

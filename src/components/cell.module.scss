@@ -9,12 +9,13 @@
 }
 
 .cell:hover {
-  outline: 5px solid #ffffffcc;
+  outline: 5px solid #ffffff;
 }
 
 .cell__text {
   font-size: 30px;
-  color: #ffffffcc;
+  font-weight: bold;
+  color: #ffffff;
 }
 
 @keyframes animation--tilt {

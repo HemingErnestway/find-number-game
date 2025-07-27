@@ -2,11 +2,11 @@
 
 /** @type {Record.<GameColor, string>} */
 export const COLORS = {
-  "blue": "#3c527a",
-  "green": "#3b7139",
-  "orange": "#805d3c",
-  "purple": "#633e78",
-  "red": "#8e485c",
+  "blue": "#4db8ec",
+  "green": "#94c94d",
+  "orange": "#f28e37",
+  "purple": "#8e3dcb",
+  "red": "#fc73b0",
 };
 
 /** @type {GameAnimation[]} */
