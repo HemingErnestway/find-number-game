@@ -3,13 +3,7 @@
 "use client";
 
 import css from "./cell.module.css";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
-
-import { ANIMATION_TWEEN_VARS, COLORS } from "@/lib/constants";
-
-gsap.registerPlugin(useGSAP);
+import { COLORS } from "@/lib/constants";
 
 /**
  * @typedef {Object} CellParams
@@ -19,33 +13,20 @@ gsap.registerPlugin(useGSAP);
 
 /** @param {CellParams} params */
 export function Cell({ cell, handleResponse }) {
-  const cellRef = useRef(null);
-  const textRef = useRef(null);
+  const cellAnimation =
+    cell.animation === "scale" ? "cell__animation--scale" :
+    cell.animation === "pulse" ? "cell__animation--pulse" : "";
 
-  if (cell.animation !== null) {
-    /** @type {CellAnimationGSAP} */
-    const animation = ANIMATION_TWEEN_VARS[cell.animation];
-
-    useGSAP(() => {
-      gsap.fromTo(
-        animation.target === "cell" ? cellRef.current : textRef.current,
-        animation.fromVars,
-        animation.toVars,
-      );
-    });
-  }
+  const cellTextAnimation =
+    cell.animation === "tilt" ? "cell-text__animation--tilt" : "";
 
   return (
     <div
-      className={css["cell"]}
+      className={`${css["cell"]} ${css[cellAnimation]}`}
       style={{ backgroundColor: COLORS[cell.color] }}
       onClick={() => handleResponse(cell.row, cell.col)}
-      ref={cellRef}
     >
-      <span
-        className={css["cell__text"]}
-        ref={textRef}
-      >
+      <span className={`${css["cell__text"]} ${css[cellTextAnimation]}`}>
         {cell.value}
       </span>
     </div>

@@ -50,10 +50,3 @@
  */
 
 /** @typedef { "tutorial" | number[] | "endless" } LevelSpan */
-
-/**
- * @typedef {Object} CellAnimationGSAP
- * @property { "cell" | "text" } target
- * @property {GSAPTweenVars} fromVars
- * @property {GSAPTweenVars} toVars
- */

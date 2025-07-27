@@ -1,6 +1,6 @@
 // @ts-check
 
-import { ANIMATION_TWEEN_VARS, COLORS, DIFFICULTIES, DIFFICULTY_LEVEL_SPAN } from "@/lib/constants";
+import { ANIMATIONS, COLORS, DIFFICULTIES, DIFFICULTY_LEVEL_SPAN } from "@/lib/constants";
 
 /**
  * Pick a random value from array.
@@ -95,9 +95,7 @@ export function generateLevel(levelNumber, difficultyNumber) {
         col: j,
         value: cellValues[i * difficulty.cols + j],
         color: sample(Object.keys(COLORS)),
-        animation: difficulty.animationsOn
-          ? sample(Object.keys(ANIMATION_TWEEN_VARS))
-          : null,
+        animation: difficulty.animationsOn ? sample(ANIMATIONS) : null,
       });
     }
   }

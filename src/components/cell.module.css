@@ -17,4 +17,40 @@
   color: rgba(255, 255, 255, 0.8);
 }
 
+@keyframes animation--tilt {
+  from {
+    transform: rotate(-15deg);
+  }
+  to {
+    transform: rotate(15deg);
+  }
+}
+@keyframes animation--pulse {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes animation--scale {
+  from {
+    scale: 1;
+  }
+  to {
+    scale: 0.5;
+  }
+}
+.cell-text__animation--tilt {
+  animation: animation--tilt 0.2s ease-in-out infinite alternate;
+}
+
+.cell__animation--pulse {
+  animation: animation--pulse 0.4s ease-in-out infinite alternate;
+}
+
+.cell__animation--scale {
+  animation: animation--scale 0.4s ease-in-out infinite alternate;
+}
+
 /*# sourceMappingURL=cell.module.css.map */

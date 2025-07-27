@@ -9,6 +9,9 @@ export const COLORS = {
   "red": "#8e485c",
 };
 
+/** @type {GameAnimation[]} */
+export const ANIMATIONS = ["scale", "pulse", "tilt"];
+
 /** @type {Grid} */
 export const TUTORIAL_CELL_GRID = [
   [
@@ -59,43 +62,4 @@ export const INITIAL_GAME_STATE = {
   },
   difficultyNumber: 0,
   bonus: 1,
-};
-
-/** @type {Record.<GameAnimation, CellAnimationGSAP>} */
-export const ANIMATION_TWEEN_VARS = {
-  "scale": {
-    target: "cell",
-    fromVars: {},
-    toVars: {
-      scale: 0.5,
-      ease: "power1.in",
-      duration: 0.4,
-      repeat: -1,
-      yoyo: true,
-    },
-  },
-  "tilt": {
-    target: "text",
-    fromVars: {
-      rotation: -15,
-    },
-    toVars: {
-      rotation: 15,
-      ease: "power1.inOut",
-      duration: 0.2,
-      repeat: -1,
-      yoyo: true,
-    },
-  },
-  "pulse": {
-    target: "cell",
-    fromVars: {},
-    toVars: {
-      opacity: 0,
-      ease: "power1.in",
-      duration: 0.4,
-      repeat: -1,
-      yoyo: true,
-    },
-  },
 };
