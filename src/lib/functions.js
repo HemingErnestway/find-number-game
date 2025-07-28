@@ -56,18 +56,27 @@ export function generateCellValues(difficultyNumber) {
  *
  * @param {number} difficultyNumber
  * @param {number} levelNumber
+ * @param { "happy" | "strike" } path
  * @returns {number}
  */
-export function nextDifficulty(levelNumber, difficultyNumber) {
+export function nextDifficulty(levelNumber, difficultyNumber, path) {
   if (DIFFICULTY_LEVEL_SPAN[difficultyNumber] === "endless") {
-    return 7;
+    switch (path) {
+      case "happy": return 7; // stay
+      case "strike": return 6; // decrease
+    }
   }
 
-  if (DIFFICULTY_LEVEL_SPAN[difficultyNumber].includes(levelNumber + 1)) {
-    return difficultyNumber;
+  const nextLevelNumber = levelNumber + (path === "happy" ? 1 : -1);
+
+  if (DIFFICULTY_LEVEL_SPAN[difficultyNumber].includes(nextLevelNumber)) {
+    return difficultyNumber; // stay if levels use same difficulty
   }
 
-  return difficultyNumber + 1;
+  switch (path) {
+    case "happy": return difficultyNumber + 1; // increase
+    case "strike": return difficultyNumber - 1 || 1; // decrease
+  }
 }
 
 /**

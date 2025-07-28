@@ -22,7 +22,11 @@ function reducer(state, action) {
 
     // happy path
     if (cell.value === state.level.numberToFind) {
-      const nextDifficultyNumber = nextDifficulty(state.level.levelNumber, state.difficultyNumber);
+      const nextDifficultyNumber = nextDifficulty(
+        state.level.levelNumber,
+        state.difficultyNumber,
+        "happy",
+      );
 
       return {
         backgroundColor: sample(Object.keys(COLORS)),
@@ -33,11 +37,17 @@ function reducer(state, action) {
     }
 
     // strike path
+    const nextDifficultyNumber = nextDifficulty(
+      state.level.levelNumber,
+      state.difficultyNumber,
+      "strike",
+    );
+
     return {
       backgroundColor: sample(Object.keys(COLORS)),
-      level: generateLevel(state.level.levelNumber, state.difficultyNumber),
-      difficultyNumber: state.difficultyNumber,
-      bonus: (state.bonus - 1) < 1 ? 1 : state.bonus - 1,
+      level: generateLevel(state.level.levelNumber - 1 || 1, nextDifficultyNumber),
+      difficultyNumber: nextDifficultyNumber,
+      bonus: state.bonus - 1 || 1,
     };
   }
 }
