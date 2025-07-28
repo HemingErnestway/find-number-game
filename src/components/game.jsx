@@ -4,12 +4,14 @@
 
 import { useEffect, useState } from "react";
 
-import { COLORS, INITIAL_GAME_STATE } from "@/lib/constants";
-import { generateLevel, nextDifficulty, sample } from "@/lib/functions";
+import { COLORS } from "@/lib/constants";
+import { generateLevel, initGameState, nextDifficulty, sample } from "@/lib/functions";
 import { useTypedReducer } from "@/lib/hooks";
+
 import { WelcomeScreen } from "@/components/welcome-screen";
 import { GameScreen } from "@/components/game-screen";
 import { TutorialScreen } from "@/components/tutorial-screen";
+import { ResultsScreen } from "@/components/results-screen";
 
 /**
  * @param {GameState} state
@@ -33,6 +35,7 @@ function reducer(state, action) {
         level: generateLevel(state.level.levelNumber + 1, nextDifficultyNumber),
         difficultyNumber: nextDifficultyNumber,
         bonus: (state.bonus + 1) > 5 ? 5 : state.bonus + 1,
+        gameOver: action.payload.timeLeft === 0,
       };
     }
 
@@ -48,23 +51,29 @@ function reducer(state, action) {
       level: generateLevel(state.level.levelNumber - 1 || 1, nextDifficultyNumber),
       difficultyNumber: nextDifficultyNumber,
       bonus: state.bonus - 1 || 1,
+      gameOver: action.payload.timeLeft === 0,
     };
+  }
+
+  if (action.type === "restart") {
+    return { ...action.payload.gameState };
   }
 }
 
 export function Game() {
-  const [state, dispatch] = useTypedReducer(reducer, {
-    backgroundColor: sample(Object.keys(COLORS)),
-    level: generateLevel(1, 1),
-    difficultyNumber: 1,
-    bonus: 1,
-  });
-
-  const [timeSeconds, setTimeSeconds] = useState(60);
+  const [state, dispatch] = useTypedReducer(reducer, initGameState());
 
   /** @type {GameScreen} */
   const  initialScreen = "welcome";
   const [screen, setScreen] = useState(initialScreen);
+
+  useEffect(() => {
+    if (state.gameOver) {
+      setScreen("results");
+    }
+  }, [state]);
+
+  const [timeSeconds, setTimeSeconds] = useState(10);
 
   useEffect(() => {
     if (screen !== "game") return;
@@ -97,6 +106,17 @@ export function Game() {
     });
   }
 
+  function handleRestart() {
+    dispatch({
+      type: "restart",
+      payload: {
+        gameState: initGameState(),
+      },
+    });
+    setScreen("welcome");
+    setTimeSeconds(10);
+  }
+
   return (
     <>
       {screen === "welcome" && (
@@ -124,7 +144,9 @@ export function Game() {
       )}
 
       {screen === "results" && (
-        "results"
+        <ResultsScreen
+          handleRestart={handleRestart}
+        />
       )}
     </>
   );

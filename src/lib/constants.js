@@ -59,4 +59,5 @@ export const INITIAL_GAME_STATE = {
   },
   difficultyNumber: 1,
   bonus: 1,
+  gameOver: false,
 };

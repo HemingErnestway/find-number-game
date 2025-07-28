@@ -37,19 +37,33 @@
  * @property {Level} level
  * @property {number} difficultyNumber
  * @property {number} bonus
+ * @property {boolean} gameOver
  */
 
 /**
- * @typedef {Object} Payload
+ * @typedef {Object} ResponsePayload
  * @property {number} row
  * @property {number} col
  * @property {number} timeLeft
  */
 
 /**
- * @typedef {Object} Action
+ * @typedef {Object} ResponseAction
  * @property {"response"} type
- * @property {Payload} payload
+ * @property {ResponsePayload} payload
  */
+
+/**
+ * @typedef {Object} RestartPayload
+ * @property {GameState} gameState
+ */
+
+/**
+ * @typedef {Object} RestartAction
+ * @property {"restart"} type
+ * @property {RestartPayload} payload
+ */
+
+/** @typedef { ResponseAction | RestartAction } Action */
 
 /** @typedef { "tutorial" | number[] | "endless" } LevelSpan */

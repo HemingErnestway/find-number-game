@@ -123,3 +123,18 @@ export function formatTime(seconds) {
   const s = String(seconds % 60).padStart(2, "0");
   return `${m}:${s}`;
 }
+
+/**
+ * Generate initial game state.
+ *
+ * @returns {GameState}
+ */
+export function initGameState() {
+  return {
+    backgroundColor: sample(Object.keys(COLORS)),
+    level: generateLevel(1, 1),
+    difficultyNumber: 1,
+    bonus: 1,
+    gameOver: false,
+  };
+}
