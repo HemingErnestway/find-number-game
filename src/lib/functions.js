@@ -59,10 +59,6 @@ export function generateCellValues(difficultyNumber) {
  * @returns {number}
  */
 export function nextDifficulty(levelNumber, difficultyNumber) {
-  if (DIFFICULTY_LEVEL_SPAN[difficultyNumber] === "tutorial") {
-    return 1;
-  }
-
   if (DIFFICULTY_LEVEL_SPAN[difficultyNumber] === "endless") {
     return 7;
   }

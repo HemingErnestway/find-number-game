@@ -9,6 +9,7 @@ import { generateLevel, nextDifficulty, sample } from "@/lib/functions";
 import { useTypedReducer } from "@/lib/hooks";
 import { WelcomeScreen } from "@/components/welcome-screen";
 import { GameScreen } from "@/components/game-screen";
+import { TutorialScreen } from "@/components/tutorial-screen";
 
 /**
  * @param {GameState} state
@@ -19,13 +20,8 @@ function reducer(state, action) {
   if (action.type === "response") {
     const cell = state.level.grid[action.payload.row][action.payload.col];
 
-    const correctPick = cell.value === state.level.numberToFind;
-    const isTutorial = state.level.levelNumber === 0;
-
-    console.log(action.payload.timeLeft);
-
     // happy path
-    if (correctPick || isTutorial) {
+    if (cell.value === state.level.numberToFind) {
       const nextDifficultyNumber = nextDifficulty(state.level.levelNumber, state.difficultyNumber);
 
       return {
@@ -47,7 +43,13 @@ function reducer(state, action) {
 }
 
 export function Game() {
-  const [state, dispatch] = useTypedReducer(reducer, INITIAL_GAME_STATE);
+  const [state, dispatch] = useTypedReducer(reducer, {
+    backgroundColor: sample(Object.keys(COLORS)),
+    level: generateLevel(1, 1),
+    difficultyNumber: 1,
+    bonus: 1,
+  });
+
   const [timeSeconds, setTimeSeconds] = useState(60);
 
   /** @type {GameScreen} */
@@ -55,7 +57,7 @@ export function Game() {
   const [screen, setScreen] = useState(initialScreen);
 
   useEffect(() => {
-    if (state.screen !== "game") return;
+    if (screen !== "game") return;
 
     const interval = setInterval(() => {
       setTimeSeconds(prev => {
@@ -68,7 +70,7 @@ export function Game() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [state]);
+  }, [screen]);
 
   /**
    * @param {number} row
@@ -94,7 +96,9 @@ export function Game() {
       )}
 
       {screen === "tutorial" && (
-        "tutorial"
+        <TutorialScreen
+          nextScreen={() => setScreen("game")}
+        />
       )}
 
       {screen === "countdown" && (

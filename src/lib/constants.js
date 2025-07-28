@@ -28,8 +28,6 @@ export const TUTORIAL_CELL_GRID = [
 
 /** @type {Record.<number, Difficulty>} */
 export const DIFFICULTIES = {
-  // tutorial difficulty, predefined numbers of different lengths
-  0: { rows: 2, cols: 3, numberLength: -1, animationsOn: false },
   // game difficulties
   1: { rows: 2, cols: 3, numberLength: 1, animationsOn: false },
   2: { rows: 2, cols: 3, numberLength: 2, animationsOn: false },
@@ -42,7 +40,6 @@ export const DIFFICULTIES = {
 
 /** @type {Record.<number, LevelSpan>} */
 export const DIFFICULTY_LEVEL_SPAN = {
-  0: "tutorial",
   1: [1],
   2: [2],
   3: [3],
@@ -56,10 +53,10 @@ export const DIFFICULTY_LEVEL_SPAN = {
 export const INITIAL_GAME_STATE = {
   backgroundColor: "blue",
   level: {
-    levelNumber: 0,
+    levelNumber: 1,
     numberToFind: 75,
     grid: TUTORIAL_CELL_GRID,
   },
-  difficultyNumber: 0,
+  difficultyNumber: 1,
   bonus: 1,
 };
