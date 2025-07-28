@@ -37,7 +37,7 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
 }
 
 .train-list__title {
@@ -50,7 +50,7 @@
 .train-list__item {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
 }
 
 .train-list-item__statement {
