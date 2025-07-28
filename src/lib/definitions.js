@@ -29,18 +29,22 @@
  * @property {Grid} grid
  */
 
+/** @typedef { "welcome" | "tutorial" | "game" | "results" } GameScreen */
+
 /**
  * @typedef {Object} GameState
  * @property {GameColor} backgroundColor
  * @property {Level} level
  * @property {number} difficultyNumber
  * @property {number} bonus
+ * @property {GameScreen} screen
  */
 
 /**
  * @typedef {Object} Payload
  * @property {number} row
  * @property {number} col
+ * @property {number} timeLeft
  */
 
 /**

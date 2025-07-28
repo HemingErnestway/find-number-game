@@ -62,4 +62,5 @@ export const INITIAL_GAME_STATE = {
   },
   difficultyNumber: 0,
   bonus: 1,
+  screen: "tutorial",
 };

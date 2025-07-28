@@ -106,3 +106,15 @@ export function generateLevel(levelNumber, difficultyNumber) {
     grid: arrayToMatrix(cells, difficulty.cols),
   };
 }
+
+/**
+ * Formats number of seconds as `123:56` string.
+ *
+ * @param {number} seconds
+ * @returns {string}
+ */
+export function formatTime(seconds) {
+  const m = Math.floor(seconds / 60);
+  const s = String(seconds % 60).padStart(2, "0");
+  return `${m}:${s}`;
+}

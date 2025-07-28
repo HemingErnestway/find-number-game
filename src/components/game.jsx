@@ -3,11 +3,12 @@
 "use client";
 
 import css from "./game.module.css";
+import { useEffect, useState } from "react";
 
 import { COLORS, INITIAL_GAME_STATE } from "@/lib/constants";
-import { Cell } from "@/components/cell";
-import { generateLevel, nextDifficulty, sample } from "@/lib/functions";
+import { generateLevel, nextDifficulty, sample, formatTime } from "@/lib/functions";
 import { useTypedReducer } from "@/lib/hooks";
+import { Cell } from "@/components/cell";
 
 /**
  * @param {GameState} state
@@ -21,6 +22,8 @@ function reducer(state, action) {
     const correctPick = cell.value === state.level.numberToFind;
     const isTutorial = state.level.levelNumber === 0;
 
+    console.log(action.payload.timeLeft);
+
     // happy path
     if (correctPick || isTutorial) {
       const nextDifficultyNumber = nextDifficulty(state.level.levelNumber, state.difficultyNumber);
@@ -30,6 +33,7 @@ function reducer(state, action) {
         level: generateLevel(state.level.levelNumber + 1, nextDifficultyNumber),
         difficultyNumber: nextDifficultyNumber,
         bonus: (state.bonus + 1) > 5 ? 5 : state.bonus + 1,
+        screen: "game",
       };
     }
 
@@ -39,12 +43,30 @@ function reducer(state, action) {
       level: generateLevel(state.level.levelNumber, state.difficultyNumber),
       difficultyNumber: state.difficultyNumber,
       bonus: (state.bonus - 1) < 1 ? 1 : state.bonus - 1,
+      screen: "game",
     };
   }
 }
 
 export function Game() {
   const [state, dispatch] = useTypedReducer(reducer, INITIAL_GAME_STATE);
+  const [timeSeconds, setTimeSeconds] = useState(60);
+
+  useEffect(() => {
+    if (state.screen !== "game") return;
+
+    const interval = setInterval(() => {
+      setTimeSeconds(prev => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [state]);
 
   /**
    * @param {number} row
@@ -56,6 +78,7 @@ export function Game() {
       payload: {
         row: row,
         col: col,
+        timeLeft: timeSeconds,
       },
     });
   }
@@ -66,6 +89,9 @@ export function Game() {
       style={{ backgroundColor: COLORS[state.backgroundColor] }}
     >
       <div className={css["game__info-container"]}>
+        <p className={css["game-info__status"]}>
+          Time: {formatTime(timeSeconds)}
+        </p>
         <p className={css["game-info__status"]}>
           Level: {state.level.levelNumber}
         </p>
