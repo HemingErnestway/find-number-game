@@ -29,7 +29,7 @@
  * @property {Grid} grid
  */
 
-/** @typedef { "welcome" | "tutorial" | "game" | "results" } GameScreen */
+/** @typedef { "welcome" | "tutorial" | "countdown" | "game" | "results" } GameScreen */
 
 /**
  * @typedef {Object} GameState
@@ -37,7 +37,6 @@
  * @property {Level} level
  * @property {number} difficultyNumber
  * @property {number} bonus
- * @property {GameScreen} screen
  */
 
 /**
