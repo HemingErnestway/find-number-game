@@ -25,9 +25,10 @@
 
 .game__field {
   height: 400px;
+  overflow: hidden;
 }
 
-.game-field__number-to-find-container {
+.game__number-to-find-container {
   font-size: 40px;
   display: flex;
   justify-content: space-between;
@@ -35,8 +36,9 @@
   color: #ffffff;
   width: 400px;
   padding: 20px;
-  margin: 0 auto 40px auto;
+  margin: 0 auto;
   user-select: none;
+  overflow: hidden;
 }
 
 .number-to-find-container__text {
@@ -54,4 +56,102 @@
   display: grid;
   gap: 20px;
   height: 100%;
+}
+
+.game__splash-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.animate--slide {
+  animation: animation--slide 1s ease-in-out;
+}
+
+@keyframes animation--slide {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  40% {
+    transform: translateX(-800px);
+    opacity: 0;
+  }
+
+  60% {
+    transform: translateX(800px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate--throb {
+  animation: animation--throb 1s ease-in-out;
+}
+
+@keyframes animation--throb {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+
+  25% {
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 1;
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+  75% {
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+
+.animate--shake {
+  animation: animation--shake 1s ease-in-out;
+}
+
+@keyframes animation--shake {
+  0% {
+    transform: translate(-50%, -50%) rotate(-5deg);
+    opacity: 0;
+  }
+
+  25% {
+    transform: translate(-50%, -50%) rotate(5deg);
+    opacity: 1;
+  }
+
+  50% {
+    transform: translate(-50%, -50%) rotate(-5deg);
+    opacity: 1;
+  }
+
+  75% {
+    transform: translate(-50%, -50%) rotate(5deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(-5deg);
+    opacity: 0;
+  }
 }

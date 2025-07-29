@@ -91,6 +91,9 @@ export function Game() {
     return () => clearInterval(interval);
   }, [screen]);
 
+  const [animate, setAnimate] = useState(false);
+  const [correct, setCorrect] = useState(true);
+
   /**
    * @param {number} row
    * @param {number} col
@@ -104,6 +107,10 @@ export function Game() {
         timeLeft: timeSeconds,
       },
     });
+
+    setCorrect(state.level.grid[row][col].value === state.level.numberToFind);
+    setAnimate(false);
+    requestAnimationFrame(() => setAnimate(true));
   }
 
   function handleRestart() {
@@ -120,15 +127,11 @@ export function Game() {
   return (
     <>
       {screen === "welcome" && (
-        <WelcomeScreen
-          nextScreen={() => setScreen("tutorial")}
-        />
+        <WelcomeScreen nextScreen={() => setScreen("tutorial")} />
       )}
 
       {screen === "tutorial" && (
-        <TutorialScreen
-          nextScreen={() => setScreen("game")}
-        />
+        <TutorialScreen nextScreen={() => setScreen("game")} />
       )}
 
       {screen === "countdown" && (
@@ -140,13 +143,13 @@ export function Game() {
           gameState={state}
           timeLeft={timeSeconds}
           handleResponse={handleResponse}
+          animate={animate}
+          correct={correct}
         />
       )}
 
       {screen === "results" && (
-        <ResultsScreen
-          handleRestart={handleRestart}
-        />
+        <ResultsScreen handleRestart={handleRestart} />
       )}
     </>
   );
