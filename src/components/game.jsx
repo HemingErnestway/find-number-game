@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 import { COLORS } from "@/lib/constants";
 import { generateLevel, initGameState, nextDifficulty, sample } from "@/lib/functions";
-import { useTypedReducer } from "@/lib/hooks";
+import { useTypedReducer, useTimer } from "@/lib/hooks";
 
 import { WelcomeScreen } from "@/components/welcome-screen";
 import { GameScreen } from "@/components/game-screen";
@@ -64,7 +64,7 @@ export function Game() {
   const [state, dispatch] = useTypedReducer(reducer, initGameState());
 
   /** @type {GameScreen} */
-  const  initialScreen = "welcome";
+  const initialScreen = "welcome";
   const [screen, setScreen] = useState(initialScreen);
 
   useEffect(() => {
@@ -73,22 +73,12 @@ export function Game() {
     }
   }, [state]);
 
-  const [timeSeconds, setTimeSeconds] = useState(10);
+  const [timeRemaining, startTimer] = useTimer(60);
 
   useEffect(() => {
-    if (screen !== "game") return;
-
-    const interval = setInterval(() => {
-      setTimeSeconds(prev => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
+    if (screen === "game") {
+      startTimer();
+    }
   }, [screen]);
 
   const [animate, setAnimate] = useState(false);
@@ -104,7 +94,7 @@ export function Game() {
       payload: {
         row: row,
         col: col,
-        timeLeft: timeSeconds,
+        timeLeft: timeRemaining,
       },
     });
 
@@ -121,7 +111,6 @@ export function Game() {
       },
     });
     setScreen("welcome");
-    setTimeSeconds(10);
   }
 
   return (
@@ -141,7 +130,7 @@ export function Game() {
       {screen === "game" && (
         <GameScreen
           gameState={state}
-          timeLeft={timeSeconds}
+          timeLeft={timeRemaining}
           handleResponse={handleResponse}
           animate={animate}
           correct={correct}

@@ -1,6 +1,6 @@
 // @ts-check
 
-import { useReducer } from "react";
+import { useReducer, useState, useRef, useCallback, useEffect } from "react";
 
 /**
  * @template S
@@ -11,4 +11,39 @@ import { useReducer } from "react";
  */
 export function useTypedReducer(reducer, initialState) {
   return useReducer(reducer, initialState);
+}
+
+/**
+ * @param {number} durationSec
+ * @returns {[]}
+ */
+export function useTimer(durationSec) {
+  const [timeRemaining, setTimeRemaining] = useState(durationSec);
+  const startTimeRef = useRef(null);
+  const animationRef = useRef(null);
+
+  const updateTimer = useCallback(() => {
+    const timePassed =
+      Math.floor((Date.now() - startTimeRef.current) / 1000);
+
+    const timeLeft = Math.max(durationSec - timePassed, 0);
+
+    setTimeRemaining(timeLeft);
+
+    if (timeLeft > 0) {
+      animationRef.current = requestAnimationFrame(updateTimer);
+    }
+  }, [durationSec]);
+
+  const startTimer = useCallback(() => {
+    startTimeRef.current = Date.now();
+    cancelAnimationFrame(animationRef.current);
+    updateTimer();
+  }, [updateTimer]);
+
+  useEffect(() => {
+    return () => cancelAnimationFrame(animationRef.current);
+  }, []);
+
+  return [timeRemaining, startTimer];
 }
