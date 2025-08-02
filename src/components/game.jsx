@@ -9,8 +9,9 @@ import { generateLevel, initGameState, nextDifficulty, sample } from "@/lib/func
 import { useTypedReducer, useTimer } from "@/lib/hooks";
 
 import { WelcomeScreen } from "@/components/welcome-screen";
-import { GameScreen } from "@/components/game-screen";
 import { TutorialScreen } from "@/components/tutorial-screen";
+import { CountdownScreen} from "@/components/countdown-screen";
+import { GameScreen } from "@/components/game-screen";
 import { ResultsScreen } from "@/components/results-screen";
 
 /**
@@ -120,11 +121,11 @@ export function Game() {
       )}
 
       {screen === "tutorial" && (
-        <TutorialScreen nextScreen={() => setScreen("game")} />
+        <TutorialScreen nextScreen={() => setScreen("countdown")} />
       )}
 
       {screen === "countdown" && (
-        "countdown"
+        <CountdownScreen nextScreen={() => setScreen("game")} />
       )}
 
       {screen === "game" && (

@@ -1,0 +1,28 @@
+.countdown-screen {
+  width: 800px;
+  height: 600px;
+  padding: 40px;
+  background-color: #1f4a5e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.countdown__time-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.4666666667);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.countdown__time-value {
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  user-select: none;
+}
+
+/*# sourceMappingURL=countdown-screen.module.css.map */
