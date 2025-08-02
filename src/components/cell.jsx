@@ -14,19 +14,19 @@ import { COLORS } from "@/lib/constants";
 /** @param {CellParams} params */
 export function Cell({ cell, handleResponse }) {
   const cellAnimation =
-    cell.animation === "scale" ? "cell__animation--scale" :
-    cell.animation === "pulse" ? "cell__animation--pulse" : "";
+    cell.animation === "scale" ? css["cell__animation--scale"] :
+    cell.animation === "pulse" ? css["cell__animation--pulse"] : "";
 
   const cellTextAnimation =
-    cell.animation === "tilt" ? "cell-text__animation--tilt" : "";
+    cell.animation === "tilt" ? css["cell-text__animation--tilt"] : "";
 
   return (
     <div
-      className={`${css["cell"]} ${css[cellAnimation]}`}
+      className={`${css["cell"]} ${cellAnimation}`}
       style={{ backgroundColor: COLORS[cell.color] }}
       onClick={() => handleResponse(cell.row, cell.col)}
     >
-      <span className={`${css["cell__text"]} ${css[cellTextAnimation]}`}>
+      <span className={`${css["cell__text"]} ${cellTextAnimation}`}>
         {cell.value}
       </span>
     </div>
