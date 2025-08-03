@@ -1,3 +1,5 @@
+// @ts-check
+
 import css from "./welcome-screen.module.css";
 
 /**

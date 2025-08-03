@@ -1,3 +1,5 @@
+// @ts-check
+
 import css from "./tutorial-screen.module.css";
 
 import { INITIAL_GAME_STATE } from "@/lib/constants";
@@ -18,7 +20,6 @@ export function TutorialScreen({ nextScreen }) {
       <GameScreen
         gameState={INITIAL_GAME_STATE}
         timeLeft={60}
-        handleResponse={null}
       />
     </>
   );

@@ -1,3 +1,5 @@
+// @ts-check
+
 import css from "./game-screen.module.css";
 import Checkmark from "../../public/checkmark-circle.svg";
 import Cross from "../../public/cross-circle.svg";
@@ -6,19 +8,25 @@ import Image from "next/image";
 import { COLORS } from "@/lib/constants";
 import { formatTime } from "@/lib/functions";
 import { Cell } from "@/components/cell";
+import { useEffect } from "react";
 
 /**
  * @typedef {Object} GameScreenProps
  * @property {GameState} gameState
  * @property {number} timeLeft
  * @property {function(number, number): void} handleResponse
+ * @property {() => void} startGameTimer
  * @property {boolean} animate
  * @property {boolean} correct
+ * @property {() => GameScreen} nextScreen
  */
 
 /** @param {GameScreenProps} props */
-export function GameScreen({ gameState, timeLeft, handleResponse, animate, correct }) {
+export function GameScreen({ gameState, timeLeft, handleResponse, startGameTimer, animate, correct, nextScreen }) {
   const splashIconAnimation = correct ? css["animate--throb"] : css["animate--shake"];
+
+  useEffect(() => { startGameTimer && startGameTimer() }, []);
+  useEffect(() => { gameState.gameOver && nextScreen() }, [gameState]);
 
   return (
     <>

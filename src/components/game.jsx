@@ -2,7 +2,7 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { COLORS } from "@/lib/constants";
 import { generateLevel, initGameState, nextDifficulty, sample } from "@/lib/functions";
@@ -68,22 +68,10 @@ export function Game() {
   const initialScreen = "welcome";
   const [screen, setScreen] = useState(initialScreen);
 
-  useEffect(() => {
-    if (state.gameOver) {
-      setScreen("results");
-    }
-  }, [state]);
-
-  const [timeRemaining, startTimer] = useTimer(60);
-
-  useEffect(() => {
-    if (screen === "game") {
-      startTimer();
-    }
-  }, [screen]);
-
   const [animate, setAnimate] = useState(false);
   const [correct, setCorrect] = useState(true);
+
+  const [timeRemaining, startTimer] = useTimer(60);
 
   /**
    * @param {number} row
@@ -133,8 +121,10 @@ export function Game() {
           gameState={state}
           timeLeft={timeRemaining}
           handleResponse={handleResponse}
+          startGameTimer={startTimer}
           animate={animate}
           correct={correct}
+          nextScreen={() => setScreen("results")}
         />
       )}
 

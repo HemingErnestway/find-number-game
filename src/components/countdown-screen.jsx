@@ -1,3 +1,5 @@
+// @ts-check
+
 import css from "./countdown-screen.module.css";
 import { useEffect } from "react";
 import { useTimer } from "@/lib/hooks";
